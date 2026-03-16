@@ -1,111 +1,111 @@
 {
-  "project_name": "商品上新与门店下架自动化平台",
+  "project_name": "Automated Platform for Product Launch & Store Unlisting",
   "date": "2026-03-13",
   "user_roles": [
     {
-      "role": "运营专员",
-      "description": "负责全部商品上下架操作，单人承担整个流程",
-      "technical_level": "中",
+      "role": "Operations Specialist",
+      "description": "Responsible for all product listing and delisting operations, handling the entire process single-handedly",
+      "technical_level": "Intermediate",
       "headcount": 1
     }
   ],
   "pain_points": [
     {
-      "job": "接收总部商品更新指令并录入 Saleor",
-      "current_solution": "手动读取 Excel，逐条在 Saleor 后台录入",
-      "pain": "商品信息分批到达，需多次上架发布，沟通来回 2-10 次",
+      "job": "Receive product update instructions from headquarters and enter into Saleor",
+      "current_solution": "Manually read Excel files and enter data one by one in the Saleor backend",
+      "pain": "Product information arrives in batches, requiring multiple listing rounds and 2–10 back-and-forth communications",
       "severity": 9,
       "frequency": "weekly"
     },
     {
-      "job": "验证商品是否成功上架",
-      "current_solution": "登录官网逐个搜索确认",
-      "pain": "20 个商品需逐一搜索验证，耗时长",
+      "job": "Verify successful product listing",
+      "current_solution": "Log into the official website and search for each product individually",
+      "pain": "Verifying 20 products one by one via search is time-consuming",
       "severity": 8,
       "frequency": "weekly"
     },
     {
-      "job": "将 Excel 数据录入 Saleor",
-      "current_solution": "手动复制粘贴",
-      "pain": "纯重复劳动，容易出错，需多次核对",
+      "job": "Enter Excel data into Saleor",
+      "current_solution": "Manual copy-pasting",
+      "pain": "Pure repetitive work, prone to errors, requiring multiple checks",
       "severity": 8,
       "frequency": "weekly"
     },
     {
-      "job": "门店商品下架",
-      "current_solution": "逐一登录 Saleor 后台对每个门店单独操作",
-      "pain": "无批量操作，每次下架需重复登录多个门店",
+      "job": "Delist products from stores",
+      "current_solution": "Log into the Saleor backend separately for each store and perform actions one by one",
+      "pain": "No batch operations; repeated logins across multiple stores for each unlisting",
       "severity": 8,
       "frequency": "weekly"
     },
     {
-      "job": "向总部汇报执行结果",
-      "current_solution": "手动汇总，邮件回复",
-      "pain": "全流程无审计记录，总部无法实时了解进度",
+      "job": "Report execution results to headquarters",
+      "current_solution": "Manual summarization and email reply",
+      "pain": "No audit trail throughout the process; headquarters cannot track progress in real time",
       "severity": 7,
       "frequency": "weekly"
     },
     {
-      "job": "接收总部补发的商品信息",
-      "current_solution": "等待邮件，手动合并",
-      "pain": "全流程完全依赖单人，存在单点风险",
+      "job": "Receive supplementary product information from headquarters",
+      "current_solution": "Wait for emails and merge data manually",
+      "pain": "Entire process relies entirely on one person, creating single point of failure risk",
       "severity": 6,
       "frequency": "weekly"
     }
   ],
   "requirements": [
     {
-      "feature": "自动解析总部发来的 Excel 文件，直接同步到 Saleor",
-      "source_quote": "要来回很多次，且要核对最终商品数量，信息是否准确",
+      "feature": "Automatically parse Excel files from headquarters and sync directly to Saleor",
+      "source_quote": "There are many back-and-forths, and we need to verify final product count and data accuracy",
       "priority": "Must"
     },
     {
-      "feature": "草稿模式：信息不全时先暂存，补全后一键发布",
-      "source_quote": "先录入已有信息，等所有信息补全再统一在发布时间发布",
+      "feature": "Draft mode: save incomplete information temporarily, publish in one click once complete",
+      "source_quote": "Enter available information first, then publish all at once at the scheduled time after full details are provided",
       "priority": "Must"
     },
     {
-      "feature": "批量门店下架操作",
-      "source_quote": "门店下架也需逐一登录Saleor后台操作",
+      "feature": "Batch store unlisting operations",
+      "source_quote": "Store unlisting also requires logging into the Saleor backend one by one",
       "priority": "Must"
     },
     {
-      "feature": "发布后自动验证官网可见性，替代手工逐一搜索",
-      "source_quote": "需要的（逐一搜索验证）",
+      "feature": "Auto-verify product visibility on the official website after publishing, replacing manual search checks",
+      "source_quote": "Needed (manual search verification)",
       "priority": "Must"
     },
     {
-      "feature": "操作全程留存审计日志，可回溯、可汇报给总部",
-      "source_quote": "缺乏审计记录",
+      "feature": "Retain full audit logs for all operations, supporting traceability and reporting to headquarters",
+      "source_quote": "Lack of audit records",
       "priority": "Must"
     },
     {
-      "feature": "轮询邮箱，自动识别主题含【商品更新】的邮件并下载附件",
-      "source_quote": "需要改成轮询邮箱",
+      "feature": "Email polling: automatically detect emails with subject containing [Product Update] and download attachments",
+      "source_quote": "Need to switch to email polling",
       "priority": "Must"
     },
     {
-      "feature": "同一邮件线程（Thread-ID）的回复自动追加到已有草稿任务",
-      "source_quote": "应该是回复邮件，follow up邮件",
+      "feature": "Automatically append replies from the same email thread (Thread-ID) to existing draft tasks",
+      "source_quote": "These are reply emails, follow-up emails",
       "priority": "Must"
     }
   ],
   "success_metrics": [
-    "运营专员从上新/下架流程中完全解放",
-    "单次上新任务处理时间从 1 天-1 周缩短至 30 分钟以内",
-    "人工干预次数从平均 5 次降至 0 次（正常流程）",
-    "官网验证准确率 100%"
+    "Operations Specialist fully relieved from product launch / delisting workflows",
+    "Single product launch task processing time reduced from 1 day–1 week to under 30 minutes",
+    "Manual interventions reduced from an average of 5 to 0 (in normal flow)",
+    "100% accuracy in official website verification"
   ],
   "open_questions": [
-    "Excel 模板是否有固定格式，还是总部每次格式不同？",
-    "单次任务最大门店数量是多少？（影响下架并发策略）"
+    "Is there a fixed Excel template, or does headquarters use different formats each time?",
+    "What is the maximum number of stores per task? (Affects unlisting concurrency strategy)"
   ],
   "technical_constraints": {
-    "saleor_bulk_create": "ProductBulkCreate 支持批量上新",
-    "saleor_bulk_takedown": "无批量下架接口，需循环调用单条 API",
-    "email_polling": "IMAP 轮询，每天 10:00 / 17:00",
-    "email_thread_matching": "同 Thread-ID 归为同一任务，新主题建新任务"
+    "saleor_bulk_create": "ProductBulkCreate supports bulk product creation",
+    "saleor_bulk_takedown": "No bulk unlisting API; individual API calls must be made in a loop",
+    "email_polling": "IMAP polling at 10:00 / 17:00 daily",
+    "email_thread_matching": "Same Thread-ID grouped into one task; new subject creates new task"
   },
-  "summary": "运营团队单人负责商品上下架全流程，完全依赖手工操作 Excel + Saleor，流程耗时 1 天到 1 周，沟通 2-10 次。核心痛点是重复录入和多次验证。目标是实现从邮件接收到结果回报的全自动化，将运营专员完全从该流程中解放。Saleor 支持批量上新（ProductBulkCreate），不支持批量下架（需循环调用）。",
+  "summary": "A single operations staff member manages the entire product listing and delisting process, relying fully on manual Excel entry and Saleor operations. The workflow takes 1 day to 1 week with 2–10 rounds of communication. Core pain points are repetitive data entry and repeated verification. The goal is full automation from email receipt to results reporting, fully freeing the operations specialist. Saleor supports bulk creation (ProductBulkCreate) but not bulk unlisting (requires looped individual API calls).",
   "confidence_level": "high"
 }
