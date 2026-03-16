@@ -1,0 +1,111 @@
+{
+  "project_name": "商品上新与门店下架自动化平台",
+  "date": "2026-03-13",
+  "user_roles": [
+    {
+      "role": "运营专员",
+      "description": "负责全部商品上下架操作，单人承担整个流程",
+      "technical_level": "中",
+      "headcount": 1
+    }
+  ],
+  "pain_points": [
+    {
+      "job": "接收总部商品更新指令并录入 Saleor",
+      "current_solution": "手动读取 Excel，逐条在 Saleor 后台录入",
+      "pain": "商品信息分批到达，需多次上架发布，沟通来回 2-10 次",
+      "severity": 9,
+      "frequency": "weekly"
+    },
+    {
+      "job": "验证商品是否成功上架",
+      "current_solution": "登录官网逐个搜索确认",
+      "pain": "20 个商品需逐一搜索验证，耗时长",
+      "severity": 8,
+      "frequency": "weekly"
+    },
+    {
+      "job": "将 Excel 数据录入 Saleor",
+      "current_solution": "手动复制粘贴",
+      "pain": "纯重复劳动，容易出错，需多次核对",
+      "severity": 8,
+      "frequency": "weekly"
+    },
+    {
+      "job": "门店商品下架",
+      "current_solution": "逐一登录 Saleor 后台对每个门店单独操作",
+      "pain": "无批量操作，每次下架需重复登录多个门店",
+      "severity": 8,
+      "frequency": "weekly"
+    },
+    {
+      "job": "向总部汇报执行结果",
+      "current_solution": "手动汇总，邮件回复",
+      "pain": "全流程无审计记录，总部无法实时了解进度",
+      "severity": 7,
+      "frequency": "weekly"
+    },
+    {
+      "job": "接收总部补发的商品信息",
+      "current_solution": "等待邮件，手动合并",
+      "pain": "全流程完全依赖单人，存在单点风险",
+      "severity": 6,
+      "frequency": "weekly"
+    }
+  ],
+  "requirements": [
+    {
+      "feature": "自动解析总部发来的 Excel 文件，直接同步到 Saleor",
+      "source_quote": "要来回很多次，且要核对最终商品数量，信息是否准确",
+      "priority": "Must"
+    },
+    {
+      "feature": "草稿模式：信息不全时先暂存，补全后一键发布",
+      "source_quote": "先录入已有信息，等所有信息补全再统一在发布时间发布",
+      "priority": "Must"
+    },
+    {
+      "feature": "批量门店下架操作",
+      "source_quote": "门店下架也需逐一登录Saleor后台操作",
+      "priority": "Must"
+    },
+    {
+      "feature": "发布后自动验证官网可见性，替代手工逐一搜索",
+      "source_quote": "需要的（逐一搜索验证）",
+      "priority": "Must"
+    },
+    {
+      "feature": "操作全程留存审计日志，可回溯、可汇报给总部",
+      "source_quote": "缺乏审计记录",
+      "priority": "Must"
+    },
+    {
+      "feature": "轮询邮箱，自动识别主题含【商品更新】的邮件并下载附件",
+      "source_quote": "需要改成轮询邮箱",
+      "priority": "Must"
+    },
+    {
+      "feature": "同一邮件线程（Thread-ID）的回复自动追加到已有草稿任务",
+      "source_quote": "应该是回复邮件，follow up邮件",
+      "priority": "Must"
+    }
+  ],
+  "success_metrics": [
+    "运营专员从上新/下架流程中完全解放",
+    "单次上新任务处理时间从 1 天-1 周缩短至 30 分钟以内",
+    "人工干预次数从平均 5 次降至 0 次（正常流程）",
+    "官网验证准确率 100%"
+  ],
+  "open_questions": [
+    "Excel 模板是否有固定格式，还是总部每次格式不同？",
+    "单次任务最大门店数量是多少？（影响下架并发策略）"
+  ],
+  "technical_constraints": {
+    "saleor_bulk_create": "ProductBulkCreate 支持批量上新",
+    "saleor_bulk_takedown": "无批量下架接口，需循环调用单条 API",
+    "email_polling": "IMAP 轮询，每天 10:00 / 17:00",
+    "email_thread_matching": "同 Thread-ID 归为同一任务，新主题建新任务"
+  },
+  "summary": "运营团队单人负责商品上下架全流程，完全依赖手工操作 Excel + Saleor，流程耗时 1 天到 1 周，沟通 2-10 次。核心痛点是重复录入和多次验证。目标是实现从邮件接收到结果回报的全自动化，将运营专员完全从该流程中解放。Saleor 支持批量上新（ProductBulkCreate），不支持批量下架（需循环调用）。",
+  "confidence_level": "high"
+}
